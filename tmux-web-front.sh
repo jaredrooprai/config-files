@@ -1,7 +1,5 @@
 SESSION=web-front
 
-tmux send-keys 'tmux a -t s-f' C-m
-
 tmux new-session -d -s ${SESSION}
 tmux rename-window 'vim'
 tmux send-keys 'v' C-m
