@@ -1,3 +1,7 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "json"]
+  "suggest.noselect": false,
+  "eslint.autoFixOnSave": true,
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "json"],
+  "tsserver.formatOnType": true,
+  "coc.preferences.formatOnType": true
 }
