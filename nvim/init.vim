@@ -1,4 +1,5 @@
 call plug#begin()
+
 Plug 'editorconfig/editorconfig-vim'
 Plug 'vimwiki/vimwiki'
 Plug 'christoomey/vim-tmux-navigator'
@@ -35,7 +36,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+
 call plug#end()
+
+let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-prettier', 'coc-highlight', 'coc-pairs', 'coc-styled-components']
 
 " vim sneak
 let g:sneak#s_next = 1
@@ -46,7 +50,7 @@ map F <Plug>Sneak_S
 let mapleader=" "
 
 " startify options
-let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.config/kitty/kitty.conf', '~/sites/web-app/', '~/sites/showpass-frontend']
+let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.config/kitty/kitty.conf', '~/Sites/web-app/', '~/sites/showpass-frontend']
 let g:startify_change_to_vcs_root = 1
 let g:startify_lists = [
   \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
@@ -89,7 +93,7 @@ map <S-j> }
 map <S-k> {
 
 " copy to clipboard
-noremap <Leader>y "+y
+noremap <Leader>y "*y
 
 "keep visual mode after indent
 vnoremap L >gv
