@@ -4,7 +4,6 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'vimwiki/vimwiki'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'preservim/nerdcommenter'
-Plug 'preservim/nerdtree'
 Plug 'mhinz/vim-startify'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'norcalli/nvim-colorizer.lua'
@@ -34,12 +33,12 @@ Plug 'jaredgorski/spacecamp'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 
 
 call plug#end()
 
-let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-prettier', 'coc-highlight', 'coc-pairs', 'coc-styled-components']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-prettier', 'coc-highlight', 'coc-pairs', 'coc-styled-components', 'coc-explorer']
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " vim sneak
 let g:sneak#s_next = 1
@@ -82,7 +81,6 @@ function! LightlineFilename()
   return expand('%')
 endfunction
 
-:let g:NERDTreeWinSize=50
 
 " keybinds
 inoremap jk <Esc>
@@ -104,17 +102,14 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+map bn :bn<cr>
+map bp :bp<cr>
+map bd :bd<cr>
+
 map <BS> <C-^>
 
 " nerdcommenter
 map <S-c> <plug>NERDCommenterToggle
-
-" nerdtree stuff
-nnoremap <Leader>m :NERDTreeToggle %<CR>
-"let g:NERDTreeGitStatusWithFlags = 1
-let g:NERDTreeIgnore = ['^node_modules$']
-let NERDTreeShowHidden=1
-let NERDTreeMapOpenInTab='<C-t>'
 
 " globals
 set modifiable
@@ -333,3 +328,48 @@ map <C-q> :Buffers<CR>
 let g:fzf_preview_window = ['up:50%']
 let g:fzf_layout = {'up':'50%'}
 
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\     'root-uri': '~/.vim',
+\   },
+\   'cocConfig': {
+\      'root-uri': '~/.config/coc',
+\   },
+\   'tab': {
+\     'position': 'tab',
+\     'quit-on-open': v:true,
+\   },
+\   'tab:$': {
+\     'position': 'tab:$',
+\     'quit-on-open': v:true,
+\   },
+\   'floating': {
+\     'position': 'floating',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingLeftside': {
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   },
+\   'buffer': {
+	\     'sources': [{'name': 'buffer', 'expand': v:true}, {'name': 'file', 'expand': v:true}]
+\   },
+\ }
+
+nnoremap <space>m :CocCommand explorer --preset buffer<CR>
