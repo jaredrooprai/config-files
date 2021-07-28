@@ -48,7 +48,7 @@ map F <Plug>Sneak_S
 let mapleader=" "
 
 " startify options
-let g:startify_bookmarks = ['~/config-files', '~/Sites/jaredrooprai.com', '~/Sites/web-app/', '~/sites/showpass-frontend']
+let g:startify_bookmarks = ['~/config-files', '~/Sites/jaredrooprai.com', '~/Sites/web-app/', '~/Sites/showpass-frontend']
 let g:startify_change_to_vcs_root = 1
 let g:startify_lists = [
   \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
