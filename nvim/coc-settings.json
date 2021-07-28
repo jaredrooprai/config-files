@@ -7,7 +7,7 @@
     "json"
   ],
   "tsserver.formatOnType": true,
-  "preferences.formatOnType": true,
+  "javascript.suggestionActions.enabled": false,
   "explorer.buffer.showHiddenBuffers": true,
   "explorer.file.showHiddenFiles": true
 }
