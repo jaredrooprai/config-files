@@ -38,7 +38,6 @@ Plug 'tpope/vim-fugitive'
 call plug#end()
 
 let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-prettier', 'coc-highlight', 'coc-pairs', 'coc-styled-components', 'coc-explorer']
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " vim sneak
 let g:sneak#s_next = 1
@@ -49,7 +48,7 @@ map F <Plug>Sneak_S
 let mapleader=" "
 
 " startify options
-let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.config/kitty/kitty.conf', '~/Sites/web-app/', '~/sites/showpass-frontend']
+let g:startify_bookmarks = ['~/config-files', '~/Sites/jaredrooprai.com', '~/Sites/web-app/', '~/sites/showpass-frontend']
 let g:startify_change_to_vcs_root = 1
 let g:startify_lists = [
   \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
@@ -129,9 +128,8 @@ set mouse=a
 " colorscheme
 " configure nvcode-color-schemes
 let g:nvcode_termcolors=256
-set background=dark
 syntax on
-colorscheme moonfly  " Or whatever colorscheme you make
+colorscheme janah  " Or whatever colorscheme you make
 
 " checks if your terminal has 24-bit color support
 if (has("termguicolors"))
@@ -328,6 +326,7 @@ map <C-q> :Buffers<CR>
 let g:fzf_preview_window = ['up:50%']
 let g:fzf_layout = {'up':'50%'}
 
+" coc explorer
 let g:coc_explorer_global_presets = {
 \   '.vim': {
 \     'root-uri': '~/.vim',

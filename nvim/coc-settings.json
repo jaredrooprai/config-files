@@ -1,7 +1,13 @@
 {
   "suggest.noselect": false,
   "eslint.autoFixOnSave": true,
-  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "json"],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "typescript",
+    "typescriptreact",
+    "json"
+  ],
   "tsserver.formatOnType": true,
-  "coc.preferences.formatOnType": true
+  "preferences.formatOnType": true,
+  "explorer.buffer.showHiddenBuffers": true,
+  "explorer.file.showHiddenFiles": true
 }
