@@ -2,8 +2,8 @@ SESSION=web-app
 
 tmux new-session -d -s ${SESSION}
 tmux rename-window 'vim'
-tmux send-keys 'v' C-m
-tmux send-keys '2' C-m
+tmux send-keys 'cd ~/Sites/web-app' C-m
+tmux send-keys 'v .' C-m
 
 tmux new-window -t $SESSION:1 -n 'main'
 tmux send-keys 'slow' C-m

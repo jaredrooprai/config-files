@@ -2,8 +2,8 @@ SESSION=web-front
 
 tmux new-session -d -s ${SESSION}
 tmux rename-window 'vim'
-tmux send-keys 'v' C-m
-tmux send-keys '3' C-m
+tmux send-keys 'cd ~/sites/showpass-frontend' C-m
+tmux send-keys 'v .' C-m
 
 tmux new-window -t $SESSION:1 -n 'server'
 tmux send-keys 'cd ~/sites/showpass-frontend' C-m
