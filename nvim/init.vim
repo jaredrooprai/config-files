@@ -7,12 +7,20 @@ call plug#begin()
   " themes
   Plug 'bluz71/vim-moonfly-colors'
   Plug 'projekt0n/github-nvim-theme'
+  Plug 'mhinz/vim-janah'
+  Plug 'rktjmp/lush.nvim'
+  Plug 'ellisonleao/gruvbox.nvim'
+  Plug 'Mofiqul/vscode.nvim'
+  Plug 'onsails/lspkind-nvim'
 
   Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
   Plug 'nvim-telescope/telescope.nvim'
 
   Plug 'justinmk/vim-sneak'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-surround'
+  Plug 'lewis6991/gitsigns.nvim'
   Plug 'preservim/nerdcommenter'
 
   Plug 'hrsh7th/cmp-nvim-lsp'
@@ -21,23 +29,24 @@ call plug#begin()
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
 
-  " For vsnip users.
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
 
   Plug 'editorconfig/editorconfig-vim'
-  Plug 'mhinz/vim-janah'
   Plug 'mhinz/vim-startify'
 
   Plug 'mhartington/formatter.nvim'
-
   Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'romgrk/barbar.nvim'
+  Plug 'famiu/feline.nvim', { 'branch': 'develop' }
+
+  Plug 'nvim-treesitter/nvim-treesitter-angular'
 call plug#end()
 
 " Load the colorscheme
 set background=dark
-colorscheme janah 
+let g:vscode_style = "dark"
+colorscheme vscode
 
 " basic settings
 let mapleader=" "
@@ -49,6 +58,7 @@ set smartcase
 set nocompatible
 set incsearch
 set mouse=a
+set list
 
 " remaps
 inoremap jk <Esc>
@@ -57,6 +67,10 @@ map <S-k> {
 noremap <Leader>y "*y
 vnoremap L >gv
 vnoremap H <gv
+map bn :bn<cr>
+map bp :bp<cr>
+map bd :bd<cr>
+nmap <BS> <C-^>
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -77,7 +91,7 @@ nnoremap <leader>m :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
 
 " Find files using Telescope command-line sugar.
-nnoremap <C-f> <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <C-f> <cmd>lua require('telescope.builtin').git_files()<cr>
 nnoremap <C-g> <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <C-B> <cmd>lua require('telescope.builtin').buffers()<cr>
 "nnoremap <C-Q> <cmd>Telescope help_tags<cr>
@@ -91,11 +105,103 @@ nnoremap <leader>q <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border='ro
 nnoremap <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={border='rounded'}})<CR>
 nnoremap <C-p> <cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border='rounded'}})<CR>
 
+" startify options
+let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.config/nvim/lua/', '~/Sites/showpass-frontend', '~/Sites/web-app']
+let g:startify_change_to_vcs_root = 1
+let g:startify_lists = [
+  \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+  \ { 'type': 'files',     'header': ['   Files']   },
+  \ ]
+
+lua <<EOF
+require('telescope').setup {
+  defaults = {
+    layout_strategy = 'vertical'
+  },
+  extensions = {
+    fzf = {
+      override_generic_sorter = false, -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                       -- the default case_mode is "smart_case"
+    }
+  }
+}
+require('telescope').load_extension('fzf')
+EOF
+
 lua <<EOF
   require("lsp-installer")
   require("treesitter")
   require("nvim-cmp")
-  require("tree")
   require("nvimformatter")
+
+
+require('gitsigns').setup {
+  signs = {
+    add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'GitSignsChange', text = '-', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+  },
+  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+  numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+  word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+  keymaps = {
+    -- Default keymap options
+    noremap = true,
+
+    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+
+    ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+    ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+    ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+    ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+    ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+    ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
+    ['n <leader>hS'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
+    ['n <leader>hU'] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
+
+    -- Text objects
+    ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+    ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+  },
+  watch_gitdir = {
+    interval = 1000,
+    follow_files = true
+  },
+  attach_to_untracked = true,
+  current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+    delay = 1000,
+    ignore_whitespace = false,
+  },
+  current_line_blame_formatter_opts = {
+    relative_time = false
+  },
+  sign_priority = 6,
+  update_debounce = 100,
+  status_formatter = nil, -- Use default
+  max_file_length = 40000,
+  preview_config = {
+    -- Options passed to nvim_open_win
+    border = 'single',
+    style = 'minimal',
+    relative = 'cursor',
+    row = 0,
+    col = 1
+  },
+  yadm = {
+    enable = false
+  },
+}
 EOF
+
 

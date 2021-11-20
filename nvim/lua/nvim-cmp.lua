@@ -61,5 +61,17 @@
   require('lspconfig')['eslint'].setup {
     capabilities = capabilities
   }
+  require('lspconfig')['angularls'].setup {
+    capabilities = capabilities
+  }
+  require('lspconfig')['cssls'].setup {
+    capabilities = capabilities
+  }
 
 
+local lspkind = require('lspkind')
+cmp.setup {
+  formatting = {
+    format = lspkind.cmp_format({with_text = false, maxwidth = 50})
+  }
+}
