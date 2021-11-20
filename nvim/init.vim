@@ -1,49 +1,56 @@
+" >> load plugins
 call plug#begin()
-    Plug 'editorconfig/editorconfig-vim'
-    Plug 'mhartington/formatter.nvim'
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'williamboman/nvim-lsp-installer'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parers on update
 
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'kabouzeid/nvim-lspinstall'
-    Plug 'glepnir/lspsaga.nvim'
-    Plug 'hrsh7th/nvim-compe'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+  " themes
+  Plug 'bluz71/vim-moonfly-colors'
+  Plug 'projekt0n/github-nvim-theme'
 
-    Plug 'glepnir/galaxyline.nvim', { 'branch': 'main' }
-    Plug 'kyazdani42/nvim-web-devicons'  " needed for galaxyline icons
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
 
-    Plug 'NLKNguyen/papercolor-theme'
-    Plug 'bluz71/vim-moonfly-colors'
+  Plug 'justinmk/vim-sneak'
+  Plug 'tpope/vim-fugitive'
+  Plug 'preservim/nerdcommenter'
 
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-fugitive'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
 
+  " For vsnip users.
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/vim-vsnip'
+
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'mhinz/vim-janah'
+  Plug 'mhinz/vim-startify'
+
+  Plug 'mhartington/formatter.nvim'
+
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'kyazdani42/nvim-tree.lua'
 call plug#end()
 
-lua <<EOF
-require("lsp")
-require("treesitter")
-require("statusbar")
-require("completion")
-require("format")
-EOF
-
-set t_Co=256   " This is may or may not needed.
-colorscheme PaperColor
+" Load the colorscheme
+set background=dark
+colorscheme janah 
 
 " basic settings
-syntax on
+let mapleader=" "
+set termguicolors
 set number
 set relativenumber
-set ignorecase      " ignore case
-set smartcase     " but don't ignore it, when search string contains uppercase letters
+set ignorecase
+set smartcase
 set nocompatible
-set incsearch        " do incremental searching
-set mouse=a  " mouse support
+set incsearch
+set mouse=a
 
+" remaps
 inoremap jk <Esc>
 map <S-j> }
 map <S-k> {
@@ -56,54 +63,39 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" set leader key to space
-let g:mapleader=" "
+" vimsnek
+let g:sneak#s_next = 1
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
 
-" formatter
-nnoremap <silent> <leader>f :Format<CR>
+" nerdcommenter
+map <S-c> <plug>NERDCommenterToggle
+vnoremap <leader>f :Format<CR>
 
-" >> Telescope bindings
-nnoremap <Leader>pp <cmd>lua require'telescope.builtin'.builtin{}<CR>
+" nvim tree
+nnoremap <leader>m :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
 
-" most recently used files
-nnoremap <Leader>m <cmd>lua require'telescope.builtin'.oldfiles{}<CR>
-
-" find buffer
-nnoremap ; <cmd>lua require'telescope.builtin'.buffers{}<CR>
-
-" find in current buffer
-nnoremap <Leader>/ <cmd>lua require'telescope.builtin'.current_buffer_fuzzy_find{}<CR>
-
-" bookmarks
-nnoremap <Leader>' <cmd>lua require'telescope.builtin'.marks{}<CR>
-
-" git files
-nnoremap <C-f> <cmd>lua require'telescope.builtin'.git_files{}<CR>
-
-" all files
-nnoremap <Leader>bfs <cmd>lua require'telescope.builtin'.find_files{}<CR>
-
-" ripgrep like grep through dir
-nnoremap <Leader>rg <cmd>lua require'telescope.builtin'.live_grep{}<CR>
-
-" pick color scheme
-nnoremap <Leader>cs <cmd>lua require'telescope.builtin'.colorscheme{}<CR>
-
+" Find files using Telescope command-line sugar.
+nnoremap <C-f> <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <C-g> <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <C-B> <cmd>lua require('telescope.builtin').buffers()<cr>
+"nnoremap <C-Q> <cmd>Telescope help_tags<cr>
 
 " >> Lsp key bindings
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <leader>h <cmd>lua vim.lsp.buf.hover({border='rounded'})<CR>
+nnoremap <leader>q <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border='rounded'})<CR>
+nnoremap <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={border='rounded'}})<CR>
+nnoremap <C-p> <cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border='rounded'}})<CR>
 
-nnoremap <silent> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> Y     <cmd>Lspsaga hover_doc<CR>
-nnoremap <silent> <C-y> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
-nnoremap <silent> <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
-nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> ga    <cmd>Lspsaga code_action<CR>
-xnoremap <silent> ga    <cmd>Lspsaga range_code_action<CR>
-nnoremap <silent> gs    <cmd>Lspsaga signature_help<CR>
+lua <<EOF
+  require("lsp-installer")
+  require("treesitter")
+  require("nvim-cmp")
+  require("tree")
+  require("nvimformatter")
+EOF
 
