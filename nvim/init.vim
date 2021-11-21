@@ -12,6 +12,8 @@ call plug#begin()
   Plug 'ellisonleao/gruvbox.nvim'
   Plug 'Mofiqul/vscode.nvim'
   Plug 'onsails/lspkind-nvim'
+  Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'ap/vim-css-color'
 
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -22,7 +24,7 @@ call plug#begin()
   Plug 'tpope/vim-surround'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'preservim/nerdcommenter'
-
+ 
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
@@ -46,7 +48,7 @@ call plug#end()
 " Load the colorscheme
 set background=dark
 let g:vscode_style = "dark"
-colorscheme vscode
+colorscheme janah
 
 " basic settings
 let mapleader=" "
@@ -59,6 +61,7 @@ set nocompatible
 set incsearch
 set mouse=a
 set list
+set nuw=6
 
 " remaps
 inoremap jk <Esc>
@@ -91,9 +94,10 @@ nnoremap <leader>m :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
 
 " Find files using Telescope command-line sugar.
-nnoremap <C-f> <cmd>lua require('telescope.builtin').git_files()<cr>
-nnoremap <C-g> <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <C-B> <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<cr>
+nnoremap <C-g> <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <C-f> <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <C-b> <cmd>lua require('telescope.builtin').buffers()<cr>
 "nnoremap <C-Q> <cmd>Telescope help_tags<cr>
 
 " >> Lsp key bindings
@@ -102,8 +106,8 @@ nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>h <cmd>lua vim.lsp.buf.hover({border='rounded'})<CR>
 nnoremap <leader>q <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border='rounded'})<CR>
-nnoremap <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={border='rounded'}})<CR>
-nnoremap <C-p> <cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border='rounded'}})<CR>
+nnoremap <S-n> <cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={border='rounded'}})<CR>
+nnoremap <S-p> <cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border='rounded'}})<CR>
 
 " startify options
 let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.config/nvim/lua/', '~/Sites/showpass-frontend', '~/Sites/web-app']
@@ -114,20 +118,20 @@ let g:startify_lists = [
   \ ]
 
 lua <<EOF
-require('telescope').setup {
-  defaults = {
-    layout_strategy = 'vertical'
-  },
-  extensions = {
-    fzf = {
-      override_generic_sorter = false, -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                       -- the default case_mode is "smart_case"
+  require('telescope').setup {
+    defaults = {
+      layout_strategy = 'vertical'
+    },
+    extensions = {
+      fzf = {
+        override_generic_sorter = false, -- override the generic sorter
+        override_file_sorter = true,     -- override the file sorter
+        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                         -- the default case_mode is "smart_case"
+      }
     }
   }
-}
-require('telescope').load_extension('fzf')
+  require('telescope').load_extension('fzf')
 EOF
 
 lua <<EOF
@@ -136,72 +140,75 @@ lua <<EOF
   require("nvim-cmp")
   require("nvimformatter")
 
+  require('gitsigns').setup {
+    signs = {
+      add          = {hl = 'GitSignsAdd'   , text = '1', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+      change       = {hl = 'GitSignsChange', text = '=', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+      delete       = {hl = 'GitSignsDelete', text = '0', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+      topdelete    = {hl = 'GitSignsDelete', text = '0', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+      changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    },
+    signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+    numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+    linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+    word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+    keymaps = {
+      -- Default keymap options
+      noremap = true,
 
-require('gitsigns').setup {
-  signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-    change       = {hl = 'GitSignsChange', text = '-', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-  },
-  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-  numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
-  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-  word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
-  keymaps = {
-    -- Default keymap options
-    noremap = true,
+      ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+      ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
 
-    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+      ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+      ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+      ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+      ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+      ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+      ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+      ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+      ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
+      ['n <leader>hS'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
+      ['n <leader>hU'] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
 
-    ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-    ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-    ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-    ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-    ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-    ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
-    ['n <leader>hS'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
-    ['n <leader>hU'] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
+      -- Text objects
+      ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+      ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+    },
+    watch_gitdir = {
+      interval = 1000,
+      follow_files = true
+    },
+    attach_to_untracked = true,
+    current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+    current_line_blame_opts = {
+      virt_text = true,
+      virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+      delay = 1000,
+      ignore_whitespace = false,
+    },
+    current_line_blame_formatter_opts = {
+      relative_time = false
+    },
+    sign_priority = 6,
+    update_debounce = 100,
+    status_formatter = nil, -- Use default
+    max_file_length = 40000,
+    preview_config = {
+      -- Options passed to nvim_open_win
+      border = 'single',
+      style = 'minimal',
+      relative = 'cursor',
+      row = 0,
+      col = 1
+    },
+    yadm = {
+      enable = false
+    },
+  }
 
-    -- Text objects
-    ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
-    ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
-  },
-  watch_gitdir = {
-    interval = 1000,
-    follow_files = true
-  },
-  attach_to_untracked = true,
-  current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-  current_line_blame_opts = {
-    virt_text = true,
-    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-    delay = 1000,
-    ignore_whitespace = false,
-  },
-  current_line_blame_formatter_opts = {
-    relative_time = false
-  },
-  sign_priority = 6,
-  update_debounce = 100,
-  status_formatter = nil, -- Use default
-  max_file_length = 40000,
-  preview_config = {
-    -- Options passed to nvim_open_win
-    border = 'single',
-    style = 'minimal',
-    relative = 'cursor',
-    row = 0,
-    col = 1
-  },
-  yadm = {
-    enable = false
-  },
-}
+
+  vim.opt.termguicolors = true
+  require("indent_blankline")
 EOF
 
 
