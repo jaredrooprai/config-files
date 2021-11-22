@@ -34,6 +34,7 @@ call plug#begin()
   Plug 'romgrk/barbar.nvim'
   Plug 'famiu/feline.nvim', { 'branch': 'develop' }
   Plug 'onsails/lspkind-nvim'
+  Plug 'nvim-lualine/lualine.nvim'
 
   " themes
   Plug 'mhinz/vim-janah'
@@ -117,6 +118,7 @@ lua <<EOF
   require("formatter-config")
   require("gitsigns-config")
   require("indent_blankline")
+  require("lualine-config")
 EOF
 
 
