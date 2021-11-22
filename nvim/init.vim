@@ -1,8 +1,8 @@
-" >> load plugins
 call plug#begin()
   Plug 'neovim/nvim-lspconfig'
   Plug 'williamboman/nvim-lsp-installer'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parers on update
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter-angular'
 
   " telescope
   Plug 'nvim-lua/plenary.nvim'
@@ -15,6 +15,7 @@ call plug#begin()
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
+
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
 
@@ -24,12 +25,11 @@ call plug#begin()
   Plug 'tpope/vim-surround'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'preservim/nerdcommenter'
-  Plug 'nvim-treesitter/nvim-treesitter-angular'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'mhinz/vim-startify'
+  Plug 'mhartington/formatter.nvim'
 
   " ui
-  Plug 'mhartington/formatter.nvim'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'romgrk/barbar.nvim'
   Plug 'famiu/feline.nvim', { 'branch': 'develop' }
@@ -57,7 +57,8 @@ set nocompatible
 set incsearch
 set mouse=a
 set list
-set nuw=6
+set hidden
+set nuw=6 " line number padding
 
 " remaps
 inoremap jk <Esc>
@@ -109,10 +110,7 @@ nnoremap <S-p> <cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border='rounde
 " startify
 let g:startify_bookmarks = ['~/config-files/', '~/Sites/showpass-frontend', '~/Sites/web-app']
 let g:startify_change_to_vcs_root = 1
-let g:startify_lists = [
-  \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-  \ { 'type': 'files',     'header': ['   Files']   },
-  \ ]
+let g:startify_lists = [{'type': 'bookmarks', 'header': ['Bookmarks']}, {'type': 'files', 'header': ['Files']}]
 
 lua <<EOF
   require("telescope-config")
