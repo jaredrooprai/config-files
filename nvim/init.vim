@@ -88,10 +88,6 @@ map <S-c> <plug>NERDCommenterToggle
 " formatter
 vnoremap <leader>f :Format<CR>
 
-" nvim tree
-nnoremap <leader>m :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-
 " Find files using Telescope command-line sugar.
 nnoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<cr>
 nnoremap <C-g> <cmd>lua require('telescope.builtin').find_files()<cr>
@@ -104,6 +100,7 @@ nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>h <cmd>lua vim.lsp.buf.hover({border='rounded'})<CR>
 nnoremap <leader>q <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border='rounded'})<CR>
+nnoremap <silent>rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <S-n> <cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={border='rounded'}})<CR>
 nnoremap <S-p> <cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border='rounded'}})<CR>
 
