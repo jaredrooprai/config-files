@@ -38,11 +38,14 @@ call plug#begin()
   Plug 'onsails/lspkind-nvim'
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'norcalli/nvim-colorizer.lua'
+  Plug 'kyazdani42/nvim-tree.lua'
 
   " themes
   Plug 'mhinz/vim-janah'
   Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+  Plug 'rktjmp/lush.nvim'
+  Plug 'ellisonleao/gruvbox.nvim'
 call plug#end()
 
 " basic settings
@@ -112,12 +115,17 @@ let test#javascript#jest#options = {
   \ 'all':   'TZ=jest --silent',
 \}
 
-" Change the "hint" color to the "orange" color, and make the "error" color bright red
+"Change the "hint" color to the "orange" color, and make the "error" color bright red
 let g:tokyonight_colors = {
   \ 'hint': 'orange',
   \ 'error': '#ff0000'
 \ }
 
+" nvim tree
+nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
+
+let g:nvim_tree_add_trailing = 1
+let g:nvim_tree_highlight_opened_files = 1
 
 lua <<EOF
   require("telescope-config")
@@ -126,13 +134,14 @@ lua <<EOF
   require("nvim-cmp-config")
   require("formatter-config")
   require("gitsigns-config")
+  require('nvim-tree-config')
   require("indent_blankline")
   require("lualine-config")
-  require'colorizer'.setup()
+  require("colorizer").setup()
+  require('nvim-autopairs').setup{}
 
   vim.g.tokyonight_style = "night"
   vim.g.tokyonight_transparent = true
   vim.cmd[[colorscheme tokyonight]]
 EOF
-
 
