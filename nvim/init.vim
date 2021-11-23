@@ -112,6 +112,13 @@ let test#javascript#jest#options = {
   \ 'all':   'TZ=jest --silent',
 \}
 
+" Change the "hint" color to the "orange" color, and make the "error" color bright red
+let g:tokyonight_colors = {
+  \ 'hint': 'orange',
+  \ 'error': '#ff0000'
+\ }
+
+
 lua <<EOF
   require("telescope-config")
   require("nvim-lsp-installer-config")
@@ -123,10 +130,8 @@ lua <<EOF
   require("lualine-config")
   require'colorizer'.setup()
 
-  -- Example config in Lua
   vim.g.tokyonight_style = "night"
   vim.g.tokyonight_transparent = true
-  -- Load the colorscheme
   vim.cmd[[colorscheme tokyonight]]
 EOF
 
