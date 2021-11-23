@@ -28,6 +28,8 @@ call plug#begin()
   Plug 'editorconfig/editorconfig-vim'
   Plug 'mhinz/vim-startify'
   Plug 'mhartington/formatter.nvim'
+  Plug 'vim-test/vim-test'
+  Plug 'windwp/nvim-autopairs'
 
   " ui
   Plug 'kyazdani42/nvim-web-devicons'
@@ -35,17 +37,13 @@ call plug#begin()
   Plug 'famiu/feline.nvim', { 'branch': 'develop' }
   Plug 'onsails/lspkind-nvim'
   Plug 'nvim-lualine/lualine.nvim'
+  Plug 'norcalli/nvim-colorizer.lua'
 
   " themes
   Plug 'mhinz/vim-janah'
-  Plug 'ap/vim-css-color'
   Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 call plug#end()
-
-" Load the colorscheme
-set background=dark
-let g:vscode_style = "dark"
-colorscheme janah
 
 " basic settings
 let mapleader=" "
@@ -110,6 +108,10 @@ let g:startify_bookmarks = ['~/config-files/', '~/Sites/showpass-frontend', '~/S
 let g:startify_change_to_vcs_root = 1
 let g:startify_lists = [{'type': 'bookmarks', 'header': ['Bookmarks']}, {'type': 'files', 'header': ['Files']}]
 
+let test#javascript#jest#options = {
+  \ 'all':   'TZ=jest --silent',
+\}
+
 lua <<EOF
   require("telescope-config")
   require("nvim-lsp-installer-config")
@@ -119,6 +121,13 @@ lua <<EOF
   require("gitsigns-config")
   require("indent_blankline")
   require("lualine-config")
+  require'colorizer'.setup()
+
+  -- Example config in Lua
+  vim.g.tokyonight_style = "night"
+  vim.g.tokyonight_transparent = true
+  -- Load the colorscheme
+  vim.cmd[[colorscheme tokyonight]]
 EOF
 
 
