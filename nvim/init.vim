@@ -30,6 +30,7 @@ call plug#begin()
   Plug 'mhartington/formatter.nvim'
   Plug 'vim-test/vim-test'
   Plug 'windwp/nvim-autopairs'
+  Plug 'vimwiki/vimwiki'
 
   " ui
   Plug 'kyazdani42/nvim-web-devicons'
@@ -120,16 +121,24 @@ nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
 let g:nvim_tree_add_trailing = 1
 let g:nvim_tree_highlight_opened_files = 1
 
-" startify
-let g:startify_bookmarks = ['~/config-files/', '~/Sites/showpass-frontend', '~/Sites/web-app']
-let g:startify_change_to_vcs_root = 1
-let g:startify_lists = [{'type': 'bookmarks', 'header': ['Bookmarks']}, {'type': 'files', 'header': ['Files']}]
+" barbar
+let bufferline = get(g:, 'bufferline', {})
+let bufferline.animation = v:false
 
 let test#javascript#jest#options = {
   \ 'all':   'TZ=jest --silent',
 \}
 
 lua <<EOF
+  require'lspconfig'.sumneko_lua.setup {
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = { 'vim' }
+        }
+      }
+    }
+  }
   require("telescope-config")
   require("nvim-lsp-installer-config")
   require("nvim-treesitter-config")
@@ -139,6 +148,7 @@ lua <<EOF
   require('nvim-tree-config')
   require("indent_blankline")
   require("lualine-config")
+  require('startify-config')
   require("colorizer").setup()
   require('nvim-autopairs').setup()
 EOF
