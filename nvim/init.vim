@@ -41,12 +41,15 @@ call plug#begin()
   Plug 'kyazdani42/nvim-tree.lua'
 
   " themes
+  Plug 'rktjmp/lush.nvim'
   Plug 'mhinz/vim-janah'
   Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-  Plug 'rktjmp/lush.nvim'
-  Plug 'ellisonleao/gruvbox.nvim'
+  Plug 'jaredrooprai/gruvbox.nvim'
 call plug#end()
+
+set background=dark
+colorscheme gruvbox
 
 " basic settings
 let mapleader=" "
@@ -71,18 +74,24 @@ vnoremap L >gv
 vnoremap H <gv
 map bn :bn<cr>
 map bp :bp<cr>
-map bd :bd<cr>
+map bd :bd!<cr>
 nmap <BS> <C-^>
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+nnoremap <C-x> <cmd>:split<cr>
+nnoremap <C-v> <cmd>:vsplit<cr>
+
+" terminal remaps
+:tnoremap jk <C-\><C-n>
+:tnoremap <Esc> <C-\><C-n>
 
 " vimsnek
-let g:sneak#s_next = 1
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
+let g:sneak#s_next = 1
 
 " nerdcommenter
 map <S-c> <plug>NERDCommenterToggle
@@ -106,6 +115,11 @@ nnoremap <silent>rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <S-n> <cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={border='rounded'}})<CR>
 nnoremap <S-p> <cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border='rounded'}})<CR>
 
+" nvim tree
+nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
+let g:nvim_tree_add_trailing = 1
+let g:nvim_tree_highlight_opened_files = 1
+
 " startify
 let g:startify_bookmarks = ['~/config-files/', '~/Sites/showpass-frontend', '~/Sites/web-app']
 let g:startify_change_to_vcs_root = 1
@@ -114,18 +128,6 @@ let g:startify_lists = [{'type': 'bookmarks', 'header': ['Bookmarks']}, {'type':
 let test#javascript#jest#options = {
   \ 'all':   'TZ=jest --silent',
 \}
-
-"Change the "hint" color to the "orange" color, and make the "error" color bright red
-let g:tokyonight_colors = {
-  \ 'hint': 'orange',
-  \ 'error': '#ff0000'
-\ }
-
-" nvim tree
-nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
-
-let g:nvim_tree_add_trailing = 1
-let g:nvim_tree_highlight_opened_files = 1
 
 lua <<EOF
   require("telescope-config")
@@ -138,10 +140,5 @@ lua <<EOF
   require("indent_blankline")
   require("lualine-config")
   require("colorizer").setup()
-  require('nvim-autopairs').setup{}
-
-  vim.g.tokyonight_style = "night"
-  vim.g.tokyonight_transparent = true
-  vim.cmd[[colorscheme tokyonight]]
+  require('nvim-autopairs').setup()
 EOF
-
