@@ -47,6 +47,7 @@ call plug#begin()
   Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
   Plug 'jaredrooprai/gruvbox.nvim'
+  Plug 'RRethy/nvim-treesitter-textsubjects'
 call plug#end()
 
 set background=dark
@@ -151,4 +152,12 @@ lua <<EOF
   require('startify-config')
   require("colorizer").setup()
   require('nvim-autopairs').setup()
+  require'nvim-treesitter.configs'.setup {
+    textsubjects = {
+      enable = true,
+      keymaps = {
+        ['<cr>'] = 'textsubjects-smart',
+      }
+    },
+  }
 EOF
