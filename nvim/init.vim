@@ -40,6 +40,7 @@ call plug#begin()
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'norcalli/nvim-colorizer.lua'
   Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'knubie/vim-kitty-navigator', {'do': 'cp ./*.py ~/.config/kitty/'}
 
   " themes
   Plug 'rktjmp/lush.nvim'
@@ -156,7 +157,7 @@ lua <<EOF
     textsubjects = {
       enable = true,
       keymaps = {
-        ['<cr>'] = 'textsubjects-smart',
+        ['q'] = 'textsubjects-smart',
       }
     },
   }
