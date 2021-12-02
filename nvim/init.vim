@@ -47,12 +47,13 @@ call plug#begin()
   Plug 'mhinz/vim-janah'
   Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-  Plug 'jaredrooprai/gruvbox.nvim'
   Plug 'RRethy/nvim-treesitter-textsubjects'
+  Plug 'jaredrooprai/gruvbox.nvim'
+  Plug 'jaredrooprai/vim-moonfly-colors'
 call plug#end()
 
 set background=dark
-colorscheme gruvbox
+colorscheme moonfly 
 
 " basic settings
 let mapleader=" "
