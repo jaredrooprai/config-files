@@ -120,9 +120,10 @@ nnoremap <S-n> <cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={border='rounde
 nnoremap <S-p> <cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border='rounded'}})<CR>
 
 " nvim tree
-nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
+nnoremap <leader>m <cmd>lua require'tree'.toggle()<CR>
 let g:nvim_tree_add_trailing = 1
 let g:nvim_tree_highlight_opened_files = 1
+let g:nvim_tree_quit_on_open = 0
 
 " barbar
 let bufferline = get(g:, 'bufferline', {})
@@ -133,15 +134,6 @@ let test#javascript#jest#options = {
 \}
 
 lua <<EOF
-  require'lspconfig'.sumneko_lua.setup {
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { 'vim' }
-        }
-      }
-    }
-  }
   require("telescope-config")
   require("nvim-lsp-installer-config")
   require("nvim-treesitter-config")
@@ -149,6 +141,7 @@ lua <<EOF
   require("formatter-config")
   require("gitsigns-config")
   require('nvim-tree-config')
+  require('tree')
   require("indent_blankline")
   require("lualine-config")
   require('startify-config')
