@@ -76,9 +76,9 @@ map <S-k> {
 noremap <Leader>y "*y
 vnoremap L >gv
 vnoremap H <gv
-map bn :bn<cr>
-map bp :bp<cr>
-map bd :bd!<cr>
+map bn :BufferNext<cr>
+map bp :BufferPrevious<cr>
+map bd :BufferClose!<cr>
 nmap <BS> <C-^>
 
 nnoremap <C-J> <C-W><C-J>

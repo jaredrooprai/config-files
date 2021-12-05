@@ -65,10 +65,13 @@
   require('lspconfig')['angularls'].setup {
     capabilities = capabilities
   }
+  require('lspconfig')['vimls'].setup {
+    capabilities = capabilities
+  }
   require('lspconfig')['sumneko_lua'].setup {
     capabilities = capabilities
   }
-  require('lspconfig')['vimls'].setup {
+  require('lspconfig')['jsonls'].setup {
     capabilities = capabilities
   }
   require('lspconfig')['stylelint_lsp'].setup {
