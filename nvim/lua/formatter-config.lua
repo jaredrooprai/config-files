@@ -48,3 +48,10 @@ require'formatter'.setup({
     },
   }
 })
+
+vim.api.nvim_exec([[
+augroup FormatAutoGroup
+  autocmd!
+  autocmd BufWritePost *.ts,*.tsx FormatWrite
+augroup END
+]], true)
