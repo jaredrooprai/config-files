@@ -1,3 +1,23 @@
+
+function string.insert(str1, str2, pos)
+    return str1:sub(1,pos)..str2..str1:sub(pos+1)
+end
+
+function FixFilePath (file)
+  local lastBracket = string.find(file, '%]')
+  local firstBracket = string.find(file, '%[')
+
+  if not lastBracket or not firstBracket then
+    return file
+  end
+
+  local newFilePath = file
+  newFilePath = string.insert(newFilePath, '\\', lastBracket - 1)
+  newFilePath = string.insert(newFilePath, '\\', firstBracket - 1)
+
+  return newFilePath
+end
+
 require'formatter'.setup({
   logging = false,
   filetype = {
@@ -14,7 +34,7 @@ require'formatter'.setup({
        function()
           return {
             exe = "prettierd",
-            args = {vim.api.nvim_buf_get_name(0)},
+            args = {FixFilePath(vim.api.nvim_buf_get_name(0))},
             stdin = true
           }
         end
