@@ -24,7 +24,7 @@ call plug#begin()
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'lewis6991/gitsigns.nvim'
-  Plug 'preservim/nerdcommenter'
+  Plug 'numToStr/Comment.nvim'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'mhinz/vim-startify'
   Plug 'mhartington/formatter.nvim'
@@ -53,7 +53,8 @@ call plug#begin()
 call plug#end()
 
 set background=dark
-colorscheme moonfly 
+let g:tokyonight_style = "night"
+colorscheme tokyonight 
 
 " basic settings
 let mapleader=" "
@@ -96,9 +97,6 @@ nnoremap <C-v> <cmd>:vsplit<cr>
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
 let g:sneak#s_next = 1
-
-" nerdcommenter
-map <S-c> <plug>NERDCommenterToggle
 
 " formatter
 vnoremap <leader>f :Format<CR>
@@ -147,7 +145,8 @@ lua <<EOF
   require('startify-config')
   require("colorizer").setup()
   require('nvim-autopairs').setup()
-  require'nvim-treesitter.configs'.setup {
+  require('Comment').setup()
+  require('nvim-treesitter.configs').setup {
     textsubjects = {
       enable = true,
       keymaps = {
