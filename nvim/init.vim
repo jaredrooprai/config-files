@@ -54,7 +54,7 @@ call plug#end()
 
 set background=dark
 let g:tokyonight_style = "night"
-colorscheme moonfly
+colorscheme gruvbox 
 
 " basic settings
 let mapleader=" "
@@ -120,9 +120,9 @@ nnoremap <S-p> <cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border='rounde
 
 " nvim tree
 nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
+let g:nvim_tree_quit_on_open = 1
 let g:nvim_tree_add_trailing = 1
 let g:nvim_tree_highlight_opened_files = 1
-let g:nvim_tree_quit_on_open = 0
 
 " barbar
 let bufferline = get(g:, 'bufferline', {})
