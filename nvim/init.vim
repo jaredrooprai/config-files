@@ -114,9 +114,9 @@ nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>h <cmd>lua vim.lsp.buf.hover({border='rounded'})<CR>
 nnoremap <leader>q <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border='rounded'})<CR>
-nnoremap <silent>rn <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <S-n> <cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts={border='rounded'}})<CR>
-nnoremap <S-p> <cmd>lua vim.lsp.diagnostic.goto_next({popup_opts={border='rounded'}})<CR>
+nnoremap <leader>n <cmd>lua vim.lsp.diagnostic.goto_prev({border='rounded'})<CR>
+nnoremap <leader>p <cmd>lua vim.lsp.diagnostic.goto_next({border='rounded'})<CR>
+nnoremap <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
 
 " nvim tree
 nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
