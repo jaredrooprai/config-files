@@ -27,10 +27,10 @@ call plug#begin()
   Plug 'numToStr/Comment.nvim'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'mhinz/vim-startify'
-  Plug 'mhartington/formatter.nvim'
   Plug 'vim-test/vim-test'
   Plug 'windwp/nvim-autopairs'
   Plug 'vimwiki/vimwiki'
+  Plug 'jose-elias-alvarez/null-ls.nvim'
 
   " ui
   Plug 'kyazdani42/nvim-web-devicons'
@@ -99,9 +99,6 @@ map f <Plug>Sneak_s
 map F <Plug>Sneak_S
 let g:sneak#s_next = 1
 
-" formatter
-vnoremap <leader>f :Format<CR>
-
 " Find files using Telescope command-line sugar.
 nnoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<cr>
 nnoremap <C-g> <cmd>lua require('telescope.builtin').find_files()<cr>
@@ -117,6 +114,9 @@ nnoremap <leader>q <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border='ro
 nnoremap <leader>n <cmd>lua vim.lsp.diagnostic.goto_prev({border='rounded'})<CR>
 nnoremap <leader>p <cmd>lua vim.lsp.diagnostic.goto_next({border='rounded'})<CR>
 nnoremap <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
+
+" formatting
+vnoremap <leader>f <cmd>lua vim.lsp.buf.range_formatting()<CR>
 
 " nvim tree
 nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
@@ -137,13 +137,12 @@ lua <<EOF
   require("nvim-lsp-installer-config")
   require("nvim-treesitter-config")
   require("nvim-cmp-config")
-  require("formatter-config")
   require("gitsigns-config")
   require('nvim-tree-config')
-  require('tree')
-  require("indent_blankline")
   require("lualine-config")
   require('startify-config')
+  require('tree')
+  require("indent_blankline")
   require("colorizer").setup()
   require('nvim-autopairs').setup()
   require('Comment').setup()
@@ -155,4 +154,16 @@ lua <<EOF
       }
     },
   }
+  require("null-ls").setup({
+    sources = {
+        require("null-ls").builtins.formatting.stylua,
+        require("null-ls").builtins.formatting.prettierd,
+        require("null-ls").builtins.formatting.eslint_d,
+    },
+    on_attach = function(client)
+      if client.resolved_capabilities.document_formatting then
+          vim.cmd("autocmd BufWritePre *.tsx,*.ts lua vim.lsp.buf.formatting_sync()")
+      end
+    end,
+  })
 EOF
