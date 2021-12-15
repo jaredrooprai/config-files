@@ -3,6 +3,7 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.stylua,
 		require("null-ls").builtins.formatting.prettierd,
 		require("null-ls").builtins.formatting.eslint_d,
+		require("null-ls").builtins.diagnostics.eslint_d,
 	},
 	on_attach = function(client)
 		if client.resolved_capabilities.document_formatting then
