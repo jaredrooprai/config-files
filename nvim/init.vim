@@ -117,6 +117,7 @@ nnoremap <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
 
 " formatting
 vnoremap <leader>f <cmd>lua vim.lsp.buf.range_formatting()<CR>
+noremap <leader>F <cmd>lua vim.lsp.buf.formatting()<CR>
 
 " nvim tree
 nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
