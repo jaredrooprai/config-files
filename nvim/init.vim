@@ -141,7 +141,6 @@ lua <<EOF
   require('nvim-tree-config')
   require("lualine-config")
   require('startify-config')
-  require('tree')
   require("indent_blankline")
   require("colorizer").setup()
   require('nvim-autopairs').setup()
