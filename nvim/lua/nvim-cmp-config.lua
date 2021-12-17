@@ -55,7 +55,8 @@ cmp.setup.cmdline(":", {
 -- Setup lspconfig.
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 require("lspconfig")["angularls"].setup({
 	capabilities = capabilities,
 })
@@ -68,7 +69,15 @@ require("lspconfig")["sumneko_lua"].setup({
 require("lspconfig")["jsonls"].setup({
 	capabilities = capabilities,
 })
+require("lspconfig")["html"].setup({
+	capabilities = capabilities,
+})
+require("lspconfig")["cssls"].setup({
+	capabilities = capabilities,
+})
+
 local lspkind = require("lspkind")
+
 cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format({ with_text = false, maxwidth = 50 }),
