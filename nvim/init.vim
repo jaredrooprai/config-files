@@ -31,6 +31,8 @@ call plug#begin()
   Plug 'windwp/nvim-autopairs'
   Plug 'vimwiki/vimwiki'
   Plug 'jose-elias-alvarez/null-ls.nvim'
+  " md
+  Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 
   " ui
   Plug 'kyazdani42/nvim-web-devicons'
@@ -137,14 +139,15 @@ lua <<EOF
   require("nvim-treesitter-config")
   require("nvim-cmp-config")
   require("gitsigns-config")
-  require('nvim-tree-config')
-  require('startify-config')
-  require('null-ls-config')
+  require("nvim-tree-config")
+  require("startify-config")
+  require("markdown-preview-config")
+  require("null-ls-config")
   require("indent_blankline")
   require("colorizer").setup()
-  require('nvim-autopairs').setup()
-  require('Comment').setup()
-  require('nvim-treesitter.configs').setup {
+  require("nvim-autopairs").setup()
+  require("Comment").setup()
+  require("nvim-treesitter.configs").setup {
     textsubjects = {
       enable = true,
       keymaps = {
