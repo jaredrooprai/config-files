@@ -35,9 +35,7 @@ call plug#begin()
   " ui
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'romgrk/barbar.nvim'
-  Plug 'famiu/feline.nvim', { 'branch': 'develop' }
   Plug 'onsails/lspkind-nvim'
-  Plug 'nvim-lualine/lualine.nvim'
   Plug 'norcalli/nvim-colorizer.lua'
   Plug 'kyazdani42/nvim-tree.lua'
   Plug 'knubie/vim-kitty-navigator', {'do': 'cp ./*.py ~/.config/kitty/'}
@@ -54,7 +52,7 @@ call plug#end()
 
 set background=dark
 let g:tokyonight_style = "night"
-colorscheme gruvbox 
+colorscheme tokyonight
 
 " basic settings
 let mapleader=" "
@@ -140,7 +138,6 @@ lua <<EOF
   require("nvim-cmp-config")
   require("gitsigns-config")
   require('nvim-tree-config')
-  require("lualine-config")
   require('startify-config')
   require('null-ls-config')
   require("indent_blankline")
