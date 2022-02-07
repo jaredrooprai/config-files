@@ -29,7 +29,6 @@ call plug#begin()
   Plug 'mhinz/vim-startify'
   Plug 'vim-test/vim-test'
   Plug 'windwp/nvim-autopairs'
-  Plug 'vimwiki/vimwiki'
   Plug 'jose-elias-alvarez/null-ls.nvim'
   " md
   Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
@@ -110,9 +109,10 @@ nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>h <cmd>lua vim.lsp.buf.hover({border='rounded'})<CR>
+nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>q <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border='rounded'})<CR>
-nnoremap <leader>n <cmd>lua vim.lsp.diagnostic.goto_prev({border='rounded'})<CR>
-nnoremap <leader>p <cmd>lua vim.lsp.diagnostic.goto_next({border='rounded'})<CR>
+nnoremap <leader>n <cmd>lua vim.lsp.diagnostic.goto_next({border='rounded'})<CR>
+nnoremap <leader>p <cmd>lua vim.lsp.diagnostic.goto_prev({border='rounded'})<CR>
 nnoremap <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
 
 " formatting
@@ -137,7 +137,6 @@ lua <<EOF
   require("telescope-config")
   require("nvim-lsp-installer-config")
   require("nvim-treesitter-config")
-  require("nvim-cmp-config")
   require("gitsigns-config")
   require("nvim-tree-config")
   require("startify-config")
@@ -147,6 +146,7 @@ lua <<EOF
   require("colorizer").setup()
   require("nvim-autopairs").setup()
   require("Comment").setup()
+  require("nvim-cmp-config")
   require("nvim-treesitter.configs").setup {
     textsubjects = {
       enable = true,
