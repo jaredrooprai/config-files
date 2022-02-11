@@ -75,9 +75,6 @@ require("lspconfig")["html"].setup({
 require("lspconfig")["cssls"].setup({
 	capabilities = capabilities,
 })
--- require("lspconfig")["grammarly"].setup({
--- 	capabilities = capabilities,
--- })
 
 local lspkind = require("lspkind")
 
