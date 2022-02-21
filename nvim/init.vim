@@ -111,8 +111,8 @@ nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>h <cmd>lua vim.lsp.buf.hover({border='rounded'})<CR>
 nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>q <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({border='rounded'})<CR>
-nnoremap <leader>n <cmd>lua vim.lsp.diagnostic.goto_next({border='rounded'})<CR>
-nnoremap <leader>p <cmd>lua vim.lsp.diagnostic.goto_prev({border='rounded'})<CR>
+nnoremap <leader>n <cmd>lua vim.diagnostic.goto_next({border='rounded'})<CR>
+nnoremap <leader>p <cmd>lua vim.diagnostic.goto_prev({border='rounded'})<CR>
 nnoremap <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
 
 " formatting
