@@ -133,6 +133,8 @@ let test#javascript#jest#options = {
   \ 'all':   'TZ=jest --silent',
 \}
 
+let bufferline.letters = 'hjklfdsa12345'
+
 lua <<EOF
   require("telescope-config")
   require("nvim-lsp-installer-config")
