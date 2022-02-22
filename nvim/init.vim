@@ -30,6 +30,10 @@ call plug#begin()
   Plug 'vim-test/vim-test'
   Plug 'windwp/nvim-autopairs'
   Plug 'jose-elias-alvarez/null-ls.nvim'
+
+  " python
+  Plug 'rafi/vim-venom', { 'for': 'python' }
+
   " md
   Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 
@@ -132,8 +136,6 @@ let bufferline.animation = v:false
 let test#javascript#jest#options = {
   \ 'all':   'TZ=jest --silent',
 \}
-
-let bufferline.letters = 'hjklfdsa12345'
 
 lua <<EOF
   require("telescope-config")
