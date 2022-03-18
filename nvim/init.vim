@@ -123,6 +123,9 @@ nnoremap <leader>r <cmd>lua vim.lsp.buf.rename()<CR>
 vnoremap <leader>f <cmd>lua vim.lsp.buf.range_formatting()<CR>
 noremap <leader>F <cmd>lua vim.lsp.buf.formatting()<CR>
 
+" git
+noremap <silent> gv <cmd>:Gvdiffsplit<CR>
+
 " nvim tree
 nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
 let g:nvim_tree_quit_on_open = 1
@@ -132,10 +135,6 @@ let g:nvim_tree_highlight_opened_files = 1
 " barbar
 let bufferline = get(g:, 'bufferline', {})
 let bufferline.animation = v:false
-
-let test#javascript#jest#options = {
-  \ 'all':   'TZ=jest --silent',
-\}
 
 lua <<EOF
   require("telescope-config")
