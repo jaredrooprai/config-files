@@ -51,13 +51,14 @@ call plug#begin()
   Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
   Plug 'RRethy/nvim-treesitter-textsubjects'
+  Plug 'rebelot/kanagawa.nvim'
   Plug 'jaredrooprai/gruvbox.nvim'
   Plug 'jaredrooprai/vim-moonfly-colors'
 call plug#end()
 
 set background=dark
 let g:tokyonight_style = "night"
-colorscheme tokyonight
+colorscheme kanagawa
 
 " basic settings
 let mapleader=" "
@@ -128,7 +129,6 @@ noremap <silent> gv <cmd>:Gvdiffsplit<CR>
 
 " nvim tree
 nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
-let g:nvim_tree_quit_on_open = 1
 let g:nvim_tree_add_trailing = 1
 let g:nvim_tree_highlight_opened_files = 1
 
