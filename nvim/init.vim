@@ -30,6 +30,8 @@ call plug#begin()
   Plug 'vim-test/vim-test'
   Plug 'windwp/nvim-autopairs'
   Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'vimwiki/vimwiki'
+  Plug 'folke/todo-comments.nvim'
 
   " python
   Plug 'rafi/vim-venom', { 'for': 'python' }
@@ -108,6 +110,7 @@ nnoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<cr>
 nnoremap <C-g> <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <C-f> <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <C-b> <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <C-t> <cmd>:TodoTelescope<cr>
 
 " >> Lsp key bindings
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
@@ -150,6 +153,7 @@ lua <<EOF
   require("nvim-autopairs").setup()
   require("Comment").setup()
   require("nvim-cmp-config")
+  require("todo-comments").setup()
   require("nvim-treesitter.configs").setup {
     textsubjects = {
       enable = true,
