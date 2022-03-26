@@ -8,6 +8,10 @@ call plug#begin()
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
   Plug 'nvim-telescope/telescope.nvim'
+
+  " tree
+  Plug 'nvim-neo-tree/neo-tree.nvim'
+  Plug 'MunifTanjim/nui.nvim'
  
   " nvim cmp
   Plug 'hrsh7th/nvim-cmp'
@@ -44,7 +48,6 @@ call plug#begin()
   Plug 'romgrk/barbar.nvim'
   Plug 'onsails/lspkind-nvim'
   Plug 'norcalli/nvim-colorizer.lua'
-  Plug 'kyazdani42/nvim-tree.lua'
   Plug 'knubie/vim-kitty-navigator', {'do': 'cp ./*.py ~/.config/kitty/'}
 
   " themes
@@ -64,6 +67,7 @@ colorscheme kanagawa
 
 " basic settings
 let mapleader=" "
+let loaded_netrwPlugin = 1
 set termguicolors
 set number
 set relativenumber
@@ -107,9 +111,8 @@ let g:sneak#s_next = 1
 
 " Find files using Telescope command-line sugar.
 nnoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<cr>
-nnoremap <C-g> <cmd>lua require('telescope.builtin').find_files()<cr>
+" nnoremap <C-g> <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <C-f> <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <C-b> <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <C-t> <cmd>:TodoTelescope<cr>
 
 " >> Lsp key bindings
@@ -131,9 +134,9 @@ noremap <leader>F <cmd>lua vim.lsp.buf.formatting()<CR>
 noremap <silent> gv <cmd>:Gvdiffsplit<CR>
 
 " nvim tree
-nnoremap <leader>m <cmd>:NvimTreeToggle<CR>
-let g:nvim_tree_add_trailing = 1
-let g:nvim_tree_highlight_opened_files = 1
+nnoremap <C-m> <cmd>:Neotree toggle<cr>
+nnoremap <C-b> <cmd>:Neotree toggle buffers<cr>
+nnoremap <C-g> <cmd>:Neotree toggle git_status<cr>
 
 " barbar
 let bufferline = get(g:, 'bufferline', {})
@@ -144,16 +147,18 @@ lua <<EOF
   require("nvim-lsp-installer-config")
   require("nvim-treesitter-config")
   require("gitsigns-config")
-  require("nvim-tree-config")
   require("startify-config")
   require("markdown-preview-config")
   require("null-ls-config")
   require("indent_blankline")
   require("colorizer").setup()
-  require("nvim-autopairs").setup()
   require("Comment").setup()
   require("nvim-cmp-config")
+  require("neo-tree-config")
   require("todo-comments").setup()
+  require('nvim-autopairs').setup({
+    disable_filetype = { "TelescopePrompt" , "vim", "typescriptreact" },
+ })
   require("nvim-treesitter.configs").setup {
     textsubjects = {
       enable = true,
