@@ -111,7 +111,7 @@ let g:sneak#s_next = 1
 
 " Find files using Telescope command-line sugar.
 nnoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<cr>
-" nnoremap <C-g> <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <C-g> <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <C-f> <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <C-t> <cmd>:TodoTelescope<cr>
 
@@ -134,9 +134,9 @@ noremap <leader>F <cmd>lua vim.lsp.buf.formatting()<CR>
 noremap <silent> gv <cmd>:Gvdiffsplit<CR>
 
 " nvim tree
-nnoremap <C-m> <cmd>:Neotree toggle<cr>
-nnoremap <C-b> <cmd>:Neotree toggle buffers<cr>
-nnoremap <C-g> <cmd>:Neotree toggle git_status<cr>
+nnoremap <S-m> <cmd>:Neotree toggle filesystem reveal_force_cwd<cr>
+nnoremap <S-b> <cmd>:Neotree toggle buffers<cr>
+nnoremap <S-f> <cmd>:Neotree toggle git_status<cr>
 
 " barbar
 let bufferline = get(g:, 'bufferline', {})
