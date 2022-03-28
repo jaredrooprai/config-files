@@ -108,7 +108,6 @@ require("neo-tree").setup({
 				["."] = "none",
 			},
 		},
-		use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
 	},
 	git_status = {
 		window = {

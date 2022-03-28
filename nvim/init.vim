@@ -156,9 +156,7 @@ lua <<EOF
   require("nvim-cmp-config")
   require("neo-tree-config")
   require("todo-comments").setup()
-  require('nvim-autopairs').setup({
-    disable_filetype = { "TelescopePrompt" , "vim", "typescriptreact" },
- })
+  require('nvim-autopairs').setup()
   require("nvim-treesitter.configs").setup {
     textsubjects = {
       enable = true,
