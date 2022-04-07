@@ -37,6 +37,10 @@ Tmap("<Esc>", "<C-\\><C-n>")
 
 Nmap("<S-j>", "}")
 Nmap("<S-k>", "{")
+
+Vmap("<S-j>", "}")
+Vmap("<S-k>", "{")
+
 Nmap("<BS>", "<C-^>")
 
 Nmap("q", ":BufferPick<cr>")
@@ -74,3 +78,4 @@ Nmap("gv", ":Gvdiffsplit<cr>")
 
 Nmap("<S-m>", ":Neotree toggle filesystem reveal_force_cwd<cr>")
 Nmap("<S-b>", ":Neotree toggle buffers<cr>")
+Nmap("<S-f>", ":Neotree toggle git_status<cr>")

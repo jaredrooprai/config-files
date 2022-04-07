@@ -1,13 +1,15 @@
-require("settings")
+require("impatient")
+
 require("plugins")
+require("settings")
 require("mappings")
 
+require("plugin-configs/null-ls-config")
 require("plugin-configs/telescope-config")
 require("plugin-configs/nvim-lsp-installer-config")
 require("plugin-configs/nvim-treesitter-config")
 require("plugin-configs/gitsigns-config")
 require("plugin-configs/startify-config")
-require("plugin-configs/null-ls-config")
 require("plugin-configs/nvim-cmp-config")
 require("plugin-configs/neo-tree-config")
 
