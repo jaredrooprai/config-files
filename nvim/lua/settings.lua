@@ -33,3 +33,4 @@ v.g.loaded_shada_plugin = 1
 v.g.loaded_spellfire_pugin = 1
 v.g.loaded_tutor_mode_plugin = 1
 v.g.loaded_remote_plugins = 1
+v.g.loaded_netrwPlugin = 1
