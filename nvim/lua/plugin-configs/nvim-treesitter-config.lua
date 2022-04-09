@@ -10,7 +10,7 @@ require("nvim-treesitter.configs").setup({
 	textsubjects = {
 		enable = true,
 		keymaps = {
-			["<cr>"] = "textsubjects-smart",
+			["q"] = "textsubjects-smart",
 		},
 	},
 })

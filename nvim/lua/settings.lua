@@ -1,9 +1,9 @@
 local v = vim
 
 v.cmd("colorscheme kanagawa")
+v.cmd("let g:sneak#label = 1")
 
 v.g.mapleader = " "
-
 v.opt.termguicolors = true
 v.opt.number = true
 v.opt.ignorecase = true
@@ -11,16 +11,11 @@ v.opt.smartcase = true
 v.opt.incsearch = true
 v.opt.list = true
 v.opt.hidden = true
-
-v.opt.mouse = "a"
-v.opt.nuw = 6
-
 v.g.bufferline = {
 	animation = false,
 }
-
-v.cmd("let g:sneak#label = 1")
-
+v.opt.mouse = "a"
+v.opt.nuw = 6
 v.g.loaded_matchparen = 1
 v.g.loaded_matchit = 1
 v.g.loaded_logiPat = 1
