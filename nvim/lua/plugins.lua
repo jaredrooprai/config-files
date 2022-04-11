@@ -33,6 +33,7 @@ return require("packer").startup(function(use)
 	use({
 		"nvim-treesitter/nvim-treesitter-angular",
 	})
+	use({ "RRethy/nvim-treesitter-textsubjects" })
 
 	-- telescope
 	use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
@@ -83,7 +84,6 @@ return require("packer").startup(function(use)
 	use({ "norcalli/nvim-colorizer.lua" })
 	use({ "knubie/vim-kitty-navigator", run = "cp ./*.py ~/.config/kitty/" })
 	use({ "lukas-reineke/indent-blankline.nvim" })
-	use({ "RRethy/nvim-treesitter-textsubjects" })
 	use({ "rktjmp/lush.nvim" })
 
 	-- theme

@@ -1,3 +1,4 @@
+vim.cmd('set shell=/bin/zsh')
 require("impatient")
 require("plugins")
 require("settings")
