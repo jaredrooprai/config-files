@@ -1,7 +1,5 @@
-local v = vim
-
 function Map(mode, shortcut, command)
-	v.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
+	vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
 end
 
 function Nmap(shortcut, command)

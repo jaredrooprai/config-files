@@ -1,9 +1,7 @@
-local v = vim
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
-local install_path = v.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-if v.fn.empty(v.fn.glob(install_path)) > 0 then
-	Packer_bootstrap = v.fn.system({
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+	Packer_bootstrap = vim.fn.system({
 		"git",
 		"clone",
 		"--depth",
@@ -13,7 +11,7 @@ if v.fn.empty(v.fn.glob(install_path)) > 0 then
 	})
 end
 
-v.cmd([[
+vim.cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerSync
