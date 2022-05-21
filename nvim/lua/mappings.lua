@@ -24,6 +24,9 @@ end
 
 if vim.g.vscode == nil then
 	Imap("jk", "<Esc>")
+else
+	Nmap('gcc', "<Plug>VSCodeCommentaryLine")
+	Vmap('gcc', "<Plug>VSCodeCommentary")
 end
 
 -- yank to clipboard
