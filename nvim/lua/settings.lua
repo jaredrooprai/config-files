@@ -1,5 +1,7 @@
-vim.cmd("colorscheme kanagawa")
-vim.cmd("let g:sneak#label = 1")
+if vim.g.vscode == nil then
+	vim.cmd("colorscheme kanagawa")
+	vim.cmd("let g:sneak#label = 1")
+end
 
 vim.g.mapleader = " "
 vim.opt.termguicolors = true
