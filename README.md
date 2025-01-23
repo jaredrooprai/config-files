@@ -1,1 +1,1 @@
-my neovim + kitty integrated setup
+my config files
