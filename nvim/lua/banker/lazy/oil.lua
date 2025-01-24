@@ -6,6 +6,7 @@ return {
             columns = {"icon"},
             keymaps = {
                 ["<C-h>"] = false,
+                ["<C-p>"] = false,
                 ["<M-h>"] = "actions.select_split"
             },
             view_options = {
@@ -14,7 +15,7 @@ return {
         }
 
         -- Open parent directory in current window
-        vim.keymap.set("n", "-", "<CMD>Oil<CR>", {
+        vim.keymap.set("n", "<leader>o", "<CMD>Oil<CR>", {
             desc = "Open parent directory"
         })
 
