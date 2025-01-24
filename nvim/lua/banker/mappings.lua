@@ -60,6 +60,5 @@ if vim.g.vscode == nil then
         noremap = true,
         silent = true
     })
-
 end
 
