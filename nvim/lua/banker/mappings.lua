@@ -54,5 +54,12 @@ if vim.g.vscode == nil then
     Nmap('<leader>fh', builtin.help_tags, {
         desc = 'Telescope help tags'
     })
+
+    -- Obsidian
+    Nmap('<leader>ot', ':ObsidianToday<CR>', {
+        noremap = true,
+        silent = true
+    })
+
 end
 
