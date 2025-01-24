@@ -39,19 +39,15 @@ if vim.g.vscode == nil then
 
     -- Telescope
     local builtin = require('telescope.builtin')
-
     Nmap('<leader>ff', builtin.find_files, {
         desc = 'Telescope find files'
     })
-
     Nmap('<leader>fg', builtin.live_grep, {
         desc = 'Telescope live grep'
     })
-
     Nmap('<leader>fb', builtin.buffers, {
         desc = 'Telescope buffers'
     })
-
     Nmap('<leader>fh', builtin.help_tags, {
         desc = 'Telescope help tags'
     })
