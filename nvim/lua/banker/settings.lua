@@ -14,8 +14,9 @@ vim.g.loaded_gzip = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_man = 1
 
-vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme catppuccin]])
-
--- obsidian nvim
-vim.opt.conceallevel = 1
+if vim.g.vscode == nil then
+    vim.o.background = "dark" -- or "light" for light mode
+    vim.cmd([[colorscheme catppuccin]])
+    -- obsidian nvim
+    vim.opt.conceallevel = 1
+end
