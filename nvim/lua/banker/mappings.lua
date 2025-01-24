@@ -34,6 +34,9 @@ Nmap("<S-k>", "{")
 Vmap("<S-j>", "}")
 Vmap("<S-k>", "{")
 
+Vmap("L", ">gv")
+Vmap("H", "<gv")
+
 if vim.g.vscode == nil then
     Imap("jk", "<Esc>")
 

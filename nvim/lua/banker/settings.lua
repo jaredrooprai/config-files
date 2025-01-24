@@ -13,3 +13,9 @@ vim.g.loaded_zipPlugin = 1
 vim.g.loaded_gzip = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_man = 1
+
+vim.o.background = "dark" -- or "light" for light mode
+vim.cmd([[colorscheme gruvbox]])
+
+-- obsidian nvim
+vim.opt.conceallevel = 1
