@@ -7,6 +7,7 @@ if vim.g.vscode == nil then
                 columns = {"icon"},
                 keymaps = {
                     ["<C-h>"] = false,
+                    ["<C-l>"] = false,
                     ["<C-p>"] = false,
                     ["<M-h>"] = "actions.select_split"
                 },

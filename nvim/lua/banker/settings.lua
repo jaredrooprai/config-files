@@ -18,5 +18,5 @@ if vim.g.vscode == nil then
     vim.o.background = "dark" -- or "light" for light mode
     vim.cmd([[colorscheme zenbones]])
     -- obsidian nvim
-    vim.opt.conceallevel = 2
+    vim.opt.conceallevel = 1
 end

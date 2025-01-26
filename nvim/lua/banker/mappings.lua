@@ -60,5 +60,12 @@ if vim.g.vscode == nil then
         noremap = true,
         silent = true
     })
+
+    -- Kitty Navigation
+    Nmap("<C-J>", ":KittyNavigateDown<CR>")
+    Nmap("<C-K>", ":KittyNavigateUp<CR>")
+    Nmap("<C-L>", ":KittyNavigateRight<CR>")
+    Nmap("<C-H>", ":KittyNavigateLeft<CR>")
+
 end
 

@@ -4,7 +4,6 @@ if vim.g.vscode == nil then
         build = ":TSUpdate",
         config = function()
             local configs = require("nvim-treesitter.configs")
-
             configs.setup({
                 ensure_installed = {"c", "lua", "vim", "vimdoc", "elixir", "javascript", "html", "python", "typescript"},
                 sync_install = false,
