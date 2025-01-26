@@ -1,1 +1,5 @@
-My neovim + kitty integrated dev setup
+My neovim + kitty integrated setup
+
+brew install neovim\
+brew install ripgrep\
+brew install --cask kitty
