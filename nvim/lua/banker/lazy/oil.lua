@@ -25,4 +25,6 @@ if vim.g.vscode == nil then
             vim.keymap.set("n", "<space>-", require("oil").toggle_float)
         end
     }
+else
+    return {}
 end

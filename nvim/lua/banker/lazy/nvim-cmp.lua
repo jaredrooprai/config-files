@@ -10,4 +10,7 @@ if vim.g.vscode == nil then
             })
         end
     }
+else
+    return {}
 end
+

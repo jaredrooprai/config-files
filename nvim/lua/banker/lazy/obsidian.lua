@@ -32,4 +32,6 @@ if vim.g.vscode == nil then
             -- see below for full list of options 👇
         }
     }
+else
+    return {}
 end

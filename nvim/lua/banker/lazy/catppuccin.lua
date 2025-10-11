@@ -4,4 +4,6 @@ if vim.g.vscode == nil then
         name = "catppuccin",
         priority = 1000
     }
+else
+    return {}
 end

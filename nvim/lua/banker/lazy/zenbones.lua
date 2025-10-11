@@ -13,4 +13,6 @@ if vim.g.vscode == nil then
         --     vim.cmd.colorscheme('zenbones')
         -- end
     }
+else
+    return {}
 end

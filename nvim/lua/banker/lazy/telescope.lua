@@ -4,4 +4,6 @@ if vim.g.vscode == nil then
         tag = '0.1.8',
         dependencies = {'nvim-lua/plenary.nvim'}
     }
+else
+    return {}
 end

@@ -5,5 +5,7 @@ if vim.g.vscode == nil then
         config = true,
         opts = ...
     }
+else
+    return {}
 end
 
