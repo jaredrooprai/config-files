@@ -20,6 +20,15 @@ hsplit() {
     kitty @ launch --type=window --location=hsplit ${2:+--keep-focus} "$cmd"
 }
 
+# Function to rename the current kitty tab
+rename_tab() {
+    if [ -z "$1" ]; then
+        echo "Usage: rename_tab <new_tab_name>"
+        return 1
+    fi
+    kitty @ set-tab-title "$1"
+}
+
 # Function to create a vertical split and run a command
 vsplit_cmd() {
     if [ -z "$1" ]; then
