@@ -14,8 +14,14 @@ if vim.g.vscode == nil then
             }
         }},
         config = function()
-            vim.lsp.config("ts_ls", {})
-            vim.lsp.config("lua_ls", {})
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+            vim.lsp.config("ts_ls", {
+                capabilities = capabilities
+            })
+            vim.lsp.config("lua_ls", {
+                capabilities = capabilities
+            })
             vim.lsp.enable({"ts_ls", "lua_ls"})
         end
     }

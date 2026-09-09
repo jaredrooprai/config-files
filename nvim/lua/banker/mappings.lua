@@ -42,7 +42,20 @@ if vim.g.vscode == nil then
 
     -- Telescope
     local builtin = require('telescope.builtin')
-    Nmap('<C-p>', builtin.find_files, {
+    Nmap('<C-p>', function()
+        local directory
+
+        if vim.bo.filetype == "oil" then
+            directory = require("oil").get_current_dir()
+        else
+            local current_file = vim.api.nvim_buf_get_name(0)
+            directory = current_file ~= "" and vim.fs.dirname(current_file) or vim.fn.getcwd()
+        end
+
+        builtin.find_files({
+            cwd = directory
+        })
+    end, {
         desc = 'Telescope find files'
     })
     Nmap('<C-f>', builtin.live_grep, {
@@ -56,7 +69,7 @@ if vim.g.vscode == nil then
     })
 
     -- Obsidian
-    Nmap('<leader>ot', ':ObsidianToday<CR>', {
+    Nmap('<leader>ot', '<cmd>Obsidian today<CR>', {
         noremap = true,
         silent = true
     })
