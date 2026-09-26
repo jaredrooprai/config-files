@@ -1,0 +1,65 @@
+#!/usr/bin/env zsh
+
+# Create a git worktree, cd into it, and npm install.
+# Then open a Kitty tab in that worktree, without leaving this tab.
+#
+# A script cannot change your current directory unless it is sourced:
+#   source ~/code/config-files/worktree-add
+#   worktree-add <same arguments as git worktree add>
+#
+# Or in one step:
+#   source ~/code/config-files/worktree-add --detach ../review origin/their-branch
+
+worktree-add() {
+  local before after line wt_path
+  local -A existing
+
+  if ! before=$(git worktree list --porcelain 2>&1); then
+    print -u2 -- "$before"
+    return 1
+  fi
+
+  for line in ${(f)before}; do
+    if [[ $line == worktree\ * ]]; then
+      existing[${line#worktree }]=1
+    fi
+  done
+
+  git worktree add "$@" || return $?
+
+  if ! after=$(git worktree list --porcelain 2>&1); then
+    print -u2 -- "$after"
+    return 1
+  fi
+
+  for line in ${(f)after}; do
+    if [[ $line == worktree\ * ]]; then
+      wt_path=${line#worktree }
+      if (( ! ${+existing[$wt_path]} )); then
+        break
+      fi
+    fi
+    wt_path=
+  done
+
+  if [[ -z $wt_path ]]; then
+    print -u2 -- "git worktree add succeeded, but no new worktree was found"
+    return 1
+  fi
+
+  cd -- "$wt_path" || return 1
+  command npm install || return $?
+
+  # --keep-focus opens the tab in the background and leaves this tab active.
+  kitty @ launch --type=tab --keep-focus --cwd="$wt_path" || return $?
+}
+
+if [[ $ZSH_EVAL_CONTEXT != *:file* ]]; then
+  print -u2 -- "Source this script so it can cd into the new worktree:"
+  print -u2 -- "  source ${0:A} <git worktree add arguments>"
+  exit 1
+fi
+
+if (( $# > 0 )); then
+  worktree-add "$@"
+fi
