@@ -23,14 +23,12 @@ if vim.g.vscode == nil then
                 name = "personal",
                 path = "/Users/jaredrooprai/Library/Mobile Documents/iCloud~md~obsidian/Documents/Shared"
             }},
-            disable_frontmatter = true,
-            note_frontmatter_func = function(note)
-                return nil -- This ensures no frontmatter is generated
-            end,
-            follow_url_func = function(url)
-                -- Open the URL in the default web browser.
-                vim.fn.jobstart({"open", url}) -- Mac OS
-            end
+            frontmatter = {
+                enabled = false,
+                func = function()
+                    return nil -- This ensures no frontmatter is generated
+                end
+            }
 
             -- see below for full list of options 👇
         }
