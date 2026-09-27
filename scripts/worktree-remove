@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Remove the linked git worktree you are in, and delete its directory.
-# Leaves the shell in the main worktree.
+# Leaves the shell in the main worktree and names the kitty window after it.
 #
 # A script cannot change your current directory unless it is sourced:
 #   source ~/code/config-files/scripts/worktree-remove
@@ -86,6 +86,10 @@ worktree-remove() {
   if ! "${cmd[@]}"; then
     cd -- "$toplevel" || print -u2 -- "could not return to $toplevel"
     return 1
+  fi
+
+  if [[ -n ${KITTY_WINDOW_ID:-} ]]; then
+    kitty @ set-os-window-title "${PWD#*/code/}" || true
   fi
 
   print -- "removed $current_wt"

@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-# Create a git worktree, cd into it, and npm install.
-# Then open a Kitty tab in that worktree, without leaving this tab.
+# Create a git worktree, cd into it, name the kitty window after that
+# directory, and npm install.
 #
 # A script cannot change your current directory unless it is sourced:
 #   source ~/code/config-files/worktree-add
@@ -48,10 +48,10 @@ worktree-add() {
   fi
 
   cd -- "$wt_path" || return 1
+  if [[ -n ${KITTY_WINDOW_ID:-} ]]; then
+    kitty @ set-os-window-title "${PWD#*/code/}" || true
+  fi
   command npm install || return $?
-
-  # --keep-focus opens the tab in the background and leaves this tab active.
-  kitty @ launch --type=tab --keep-focus --cwd="$wt_path" || return $?
 }
 
 if [[ $ZSH_EVAL_CONTEXT != *:file* ]]; then
