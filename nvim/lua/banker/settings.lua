@@ -15,8 +15,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_man = 1
 
 if vim.g.vscode == nil then
-    vim.o.background = "dark" -- or "light" for light mode
-    vim.cmd([[colorscheme zenbones]])
+    vim.o.background = "dark"
     -- obsidian nvim
     vim.opt.conceallevel = 1
 end

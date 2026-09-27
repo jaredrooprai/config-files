@@ -3,8 +3,12 @@ if vim.g.vscode == nil then
         "esmuellert/codediff.nvim",
         cmd = "CodeDiff",
         opts = {
+            explorer = {
+                auto_open_on_cursor = true
+            },
             keymaps = {
                 view = {
+                    quit = {"q", "ZZ"},
                     toggle_stage = "s"
                 }
             }
