@@ -1,0 +1,102 @@
+#!/usr/bin/env zsh
+
+# Remove the linked git worktree you are in, and delete its directory.
+# Leaves the shell in the main worktree.
+#
+# A script cannot change your current directory unless it is sourced:
+#   source ~/code/config-files/scripts/worktree-remove
+#   worktree-remove [--force]
+#
+# Or in one step, when you need to delete uncommitted work:
+#   source ~/code/config-files/scripts/worktree-remove --force
+
+worktree-remove() {
+  local force=0
+  if [[ ${1-} == --force || ${1-} == -f ]]; then
+    force=1
+    shift
+  fi
+  if (( $# > 0 )); then
+    print -u2 -- "usage: worktree-remove [--force]"
+    return 1
+  fi
+
+  local toplevel git_dir common_dir
+  if ! toplevel=$(git rev-parse --show-toplevel 2>&1); then
+    print -u2 -- "$toplevel"
+    return 1
+  fi
+  if ! git_dir=$(git rev-parse --path-format=absolute --git-dir 2>&1); then
+    print -u2 -- "$git_dir"
+    return 1
+  fi
+  if ! common_dir=$(git rev-parse --path-format=absolute --git-common-dir 2>&1); then
+    print -u2 -- "$common_dir"
+    return 1
+  fi
+
+  toplevel=${toplevel:A}
+  git_dir=${git_dir:A}
+  common_dir=${common_dir:A}
+
+  # A linked worktree's git dir lives under the main repo's .git/worktrees.
+  if [[ $git_dir == $common_dir ]]; then
+    print -u2 -- "refusing to remove the main worktree: $toplevel"
+    return 1
+  fi
+
+  # Do not name this variable "path": in zsh that is tied to $PATH.
+  local porcelain line wt_path main_wt current_wt
+  if ! porcelain=$(git worktree list --porcelain 2>&1); then
+    print -u2 -- "$porcelain"
+    return 1
+  fi
+
+  for line in ${(f)porcelain}; do
+    if [[ $line == worktree\ * ]]; then
+      wt_path=${line#worktree }
+      if [[ -z $main_wt ]]; then
+        main_wt=$wt_path
+      fi
+      if [[ ${wt_path:A} == $toplevel ]]; then
+        current_wt=$wt_path
+      fi
+    fi
+  done
+
+  if [[ -z $main_wt || -z $current_wt ]]; then
+    print -u2 -- "could not locate this worktree in 'git worktree list'"
+    return 1
+  fi
+
+  if [[ ${main_wt:A} == $toplevel ]]; then
+    print -u2 -- "refusing to remove the main worktree: $toplevel"
+    return 1
+  fi
+
+  # git worktree remove deletes the directory. Leave first so this shell
+  # is not left inside a removed folder.
+  cd -- "${main_wt:A}" || return 1
+
+  local -a cmd
+  cmd=(git worktree remove)
+  (( force )) && cmd+=(--force)
+  cmd+=(-- "$current_wt")
+
+  if ! "${cmd[@]}"; then
+    cd -- "$toplevel" || print -u2 -- "could not return to $toplevel"
+    return 1
+  fi
+
+  print -- "removed $current_wt"
+}
+
+if [[ $ZSH_EVAL_CONTEXT != *:file* ]]; then
+  print -u2 -- "Source this script so it can leave the worktree before deleting it:"
+  print -u2 -- "  source ${0:A} [--force]"
+  exit 1
+fi
+
+if (( $# > 0 )); then
+  worktree-remove "$@"
+fi
