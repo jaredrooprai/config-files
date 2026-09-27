@@ -22,7 +22,10 @@ if vim.g.vscode == nil then
             vim.lsp.config("lua_ls", {
                 capabilities = capabilities
             })
-            vim.lsp.enable({"ts_ls", "lua_ls"})
+            vim.lsp.config("angularls", {
+                capabilities = capabilities
+            })
+            vim.lsp.enable({"ts_ls", "lua_ls", "angularls"})
         end
     }
 else

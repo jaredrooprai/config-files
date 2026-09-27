@@ -6,13 +6,13 @@ if vim.g.vscode == nil then
         build = ":TSUpdate",
         config = function()
             local treesitter = require("nvim-treesitter")
-            local parsers = {"c", "lua", "vim", "vimdoc", "elixir", "javascript", "html", "python", "typescript"}
+            local parsers = {"c", "lua", "vim", "vimdoc", "elixir", "javascript", "html", "angular", "python", "typescript"}
 
             treesitter.setup()
             treesitter.install(parsers)
 
             vim.api.nvim_create_autocmd("FileType", {
-                pattern = {"c", "lua", "vim", "help", "elixir", "javascript", "html", "python", "typescript"},
+                pattern = {"c", "lua", "vim", "help", "elixir", "javascript", "html", "htmlangular", "python", "typescript"},
                 callback = function()
                     pcall(vim.treesitter.start)
                     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
