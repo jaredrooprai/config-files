@@ -3,6 +3,9 @@ if vim.g.vscode == nil then
         "esmuellert/codediff.nvim",
         cmd = "CodeDiff",
         opts = {
+            diff = {
+                gutter_signs = {}
+            },
             explorer = {
                 auto_open_on_cursor = true
             },
