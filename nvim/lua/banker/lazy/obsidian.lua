@@ -19,6 +19,10 @@ if vim.g.vscode == nil then
         },
         opts = {
             legacy_commands = false,
+            -- render-markdown.nvim handles in-buffer rendering
+            ui = {
+                enable = false
+            },
             workspaces = {{
                 name = "personal",
                 path = "/Users/jaredrooprai/Library/Mobile Documents/iCloud~md~obsidian/Documents/Shared"
