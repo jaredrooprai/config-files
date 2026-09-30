@@ -80,5 +80,40 @@ if vim.g.vscode == nil then
     Nmap("<C-L>", ":KittyNavigateRight<CR>")
     Nmap("<C-H>", ":KittyNavigateLeft<CR>")
 
+    -- Copy "relative/path:start-end" (optionally with the code) for the visual selection,
+    -- to paste into an agent pane
+    local function file_ref(with_code)
+        local s, e = vim.fn.line("v"), vim.fn.line(".")
+        if s > e then
+            s, e = e, s
+        end
+
+        local path = vim.api.nvim_buf_get_name(0)
+        -- codediff uses virtual buffers (codediff://...); keep only the repo-relative tail
+        path = path:gsub("^codediff://", ""):gsub("^.*%.git/+[^/]+/+", "")
+        path = vim.fn.fnamemodify(path, ":.")
+
+        local ref = s == e and ("%s:%d"):format(path, s) or ("%s:%d-%d"):format(path, s, e)
+        if with_code then
+            local lines = vim.api.nvim_buf_get_lines(0, s - 1, e, false)
+            ref = ref .. "\n```\n" .. table.concat(lines, "\n") .. "\n```"
+        end
+
+        vim.fn.setreg("+", ref)
+        vim.notify("Copied " .. ref:match("^[^\n]+"))
+        vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
+    end
+
+    Vmap("<leader>r", function()
+        file_ref(false)
+    end, {
+        desc = "Copy file:lines ref"
+    })
+    Vmap("<leader>R", function()
+        file_ref(true)
+    end, {
+        desc = "Copy file:lines ref + code"
+    })
+
 end
 
