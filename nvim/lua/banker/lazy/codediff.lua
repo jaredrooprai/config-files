@@ -105,7 +105,8 @@ if vim.g.vscode == nil then
                 gutter_signs = {}
             },
             explorer = {
-                auto_open_on_cursor = true
+                auto_open_on_cursor = true,
+                view_mode = "tree"
             },
             keymaps = {
                 view = {
