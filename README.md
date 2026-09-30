@@ -77,7 +77,20 @@ alias config-files="cd $CONFIG_FILES && v ."
 alias wta=worktree-add
 alias wtr="worktree-remove --force"
 alias ai="agent"
-alias diff="nvim -c CodeDiff"
+
+# Open CodeDiff in nvim, or log a message if there's nothing to diff
+diff() {
+	# Outside a repo, git prints its own "fatal: not a git repository" error
+	local changes
+	changes=$(git status --porcelain) || return $?
+
+	if [ -z "$changes" ]; then
+		echo "nothing to commit, working tree clean"
+		return 0
+	fi
+
+	nvim -c CodeDiff
+}
 
 # Files from this repo (these must be sourced, not executed)
 source "$CONFIG_FILES/scripts/kitty-splits.sh"   # vsplit, hsplit, vsplit_cmd, hsplit_cmd, rename_tab
