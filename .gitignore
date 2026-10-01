@@ -1,3 +1,22 @@
+# ignore everything
+*
+
+# but keep these
+!.gitignore
+!README.md
+!Brewfile
+!.editorconfig
+
+!nvim/
+!nvim/**
+!kitty/
+!kitty/**
+!tmux/
+!tmux/**
+!scripts/
+!scripts/**
+
+# still ignore junk inside included dirs
 .DS_Store
 .nvimlog
 nvim.log
