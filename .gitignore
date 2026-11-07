@@ -15,6 +15,8 @@
 !tmux/**
 !scripts/
 !scripts/**
+!t3code/
+!t3code/**
 
 # still ignore junk inside included dirs
 .DS_Store
