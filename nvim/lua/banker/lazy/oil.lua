@@ -73,7 +73,7 @@ if vim.g.vscode == nil then
                                                       entry.name:lower():match("%.xls[xmb]?$")
 
                             if is_excel_file and directory then
-                                vim.system({"open", "-a", "Microsoft Excel", directory .. entry.name},
+                                vim.system({"open", "-a", "GridCraft", directory .. entry.name},
                                     {detach = true})
                                 return
                             end

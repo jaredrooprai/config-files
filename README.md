@@ -11,7 +11,7 @@ Neovim + kitty + zsh setup for macOS (Apple Silicon). `~/.config` is a symlink t
 | `scripts/` | `kitty-splits.sh` (`vsplit`, `hsplit`, `rename_tab`), `worktree-add`, `worktree-remove` (must be sourced) |
 | `tmux/tmux.conf` | tmux pane navigation (read via `~/.config/tmux/tmux.conf`) |
 | `karabiner/` | Karabiner-Elements rules (ctrl + numpad -> arrows / ctrl+u) |
-| `t3code/themes/` | T3 Code custom themes (`nier-automata`, `claude-soft`); copy into `~/.t3/userdata/themes/` |
+| `t3code/themes/` | T3 Code custom themes (`nier-automata`, `claude-soft`, `claude`); copy into `~/.t3/userdata/themes/` |
 | `Brewfile` | Everything installed through Homebrew |
 
 ## New machine setup

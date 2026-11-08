@@ -19,7 +19,7 @@ if vim.g.vscode == nil then
                 end
 
                 actions.close(prompt_bufnr)
-                vim.system({"open", "-a", "Microsoft Excel", vim.fs.abspath(path)}, {
+                vim.system({"open", "-a", "GridCraft", vim.fs.abspath(path)}, {
                     detach = true
                 })
             end

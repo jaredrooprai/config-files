@@ -4,6 +4,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.incsearch = true
 vim.opt.list = true
+vim.opt.listchars:append({ tab = "  " })
 vim.opt.hidden = true
 vim.opt.mouse = "a"
 
